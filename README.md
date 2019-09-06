@@ -1,6 +1,6 @@
 # itriad
 
-### run virtual enviroment on Lixun:
+### run virtual enviroment on Ubuntu:
 
 source venv/bin/activate
 
