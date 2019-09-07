@@ -4,10 +4,13 @@ from PyQt5.QtGui import QPixmap
 
 from src.views.gui.PriceTable import PriceTable
 import src.assets.styles.MainWindow as STYLES
-import src.controllers.PriceController as PriceController
+
+#IMPORTANDO CONTROLLERS
+from src.controllers.PriceController import PriceController
+from src.controllers.ControllerController import ControllerController
+from src.controllers.ReportController import ReportController
 
 #IMPORTANTO VIEWS
-from src.views.PriceView import PriceView
 from src.views.ControllerView import ControllerView
 from src.views.ReportView import ReportView
 
@@ -17,19 +20,19 @@ class MainWindow(QMainWindow):
         self.title = "ITRIAD"
         top = 100
         left = 100
-        width = 760
-        height = 500
+        width = 762
+        height = 510
 
         self.setWindowTitle(self.title)
         self.setGeometry(top, left, width, height)
         self.setup_toobar()
         self.setStyleSheet(STYLES.container)
 
-        self.setFixedWidth(760)
-        self.setFixedHeight(500)
+        self.setFixedWidth(width)
+        self.setFixedHeight(height)
 
-        price_view = PriceController.render_view()
-        self.setCentralWidget(price_view)
+        price_controller = PriceController()
+        self.setCentralWidget(price_controller.render_view())
 
     def setup_toobar(self):
         logo = QPixmap('src/assets/images/logo.png')
@@ -69,19 +72,19 @@ class MainWindow(QMainWindow):
         self.btn_report.setStyleSheet(STYLES.tool_button)
         self.btn_controler.setStyleSheet(STYLES.tool_button)
         self.btn_price.setStyleSheet(STYLES.active_tool_button)
-        price_view = PriceView()
-        self.setCentralWidget(price_view)
+        price_controller = PriceController()
+        self.setCentralWidget(price_controller.render_view())
 
     def report_handle_click(self):
         self.btn_price.setStyleSheet(STYLES.tool_button)
         self.btn_controler.setStyleSheet(STYLES.tool_button)
         self.btn_report.setStyleSheet(STYLES.active_tool_button)
-        report_view = ReportView()
-        self.setCentralWidget(report_view)
+        report_controller = ReportController()
+        self.setCentralWidget(report_controller.render_view())
 
     def controller_handle_click(self):
         self.btn_price.setStyleSheet(STYLES.tool_button)
         self.btn_report.setStyleSheet(STYLES.tool_button)
         self.btn_controler.setStyleSheet(STYLES.active_tool_button)
-        controller_view = ControllerView()
-        self.setCentralWidget(controller_view)
+        controller_controller = ControllerController()
+        self.setCentralWidget(controller_controller.render_view())

@@ -6,20 +6,20 @@ import src.assets.Colors as COLORS
 import src.assets.styles.ControllerView as STYLES
 
 class ControllerView(QWidget):
-    def __init__(self):
+    def __init__(self, vehicle_list):
         super().__init__()
 
-        self.list_autos_container = QWidget()
+        list_autos_container = QWidget()
+        container = QHBoxLayout()
 
-        self.container = QHBoxLayout()
         self.new_auto = NewAuto()
-        self.list_autos = ListAutos()
+        self.list_autos = ListAutos(vehicle_list)
 
-        self.list_autos_container.setLayout(self.list_autos)
+        list_autos_container.setLayout(self.list_autos)
 
-        self.container.addLayout(self.new_auto)
-        self.container.addSpacing(3)
-        self.container.addWidget(self.list_autos_container)
-        self.list_autos_container.setStyleSheet(STYLES.list_autos_container)
+        container.addLayout(self.new_auto)
+        container.addSpacing(3)
+        container.addWidget(list_autos_container)
+        list_autos_container.setStyleSheet(STYLES.list_autos_container)
 
-        self.setLayout(self.container)
+        self.setLayout(container)

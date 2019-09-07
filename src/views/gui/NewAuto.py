@@ -11,7 +11,7 @@ class NewAuto(QVBoxLayout):
         self.textinput_plate = QLineEdit()
         self.textinput_model = QLineEdit()
         self.textinput_color = QLineEdit()
-        self.button_save = QPushButton('FINALIZAR')
+        self.button_save = QPushButton('REGISTRAR ENTRADA DO VEÍCULO')
 
         self.init()
 

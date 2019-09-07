@@ -7,15 +7,15 @@ import src.assets.styles.ReportView as STYLES
 import src.assets.Colors as COLORS
 
 class ReportView(QWidget):
-    def __init__(self):
+    def __init__(self, days):
         super().__init__()
 
-        self.layout = QVBoxLayout()
-        self.layout.setAlignment(Qt.AlignCenter)
-        self.inputs_layout = QHBoxLayout()
-        self.labels_layout = QVBoxLayout()
-        self.labels_layout.setAlignment(Qt.AlignCenter)
-        self.labels_container = QWidget()
+        layout = QVBoxLayout()
+        layout.setAlignment(Qt.AlignCenter)
+        inputs_layout = QHBoxLayout()
+        labels_layout = QVBoxLayout()
+        labels_layout.setAlignment(Qt.AlignCenter)
+        labels_container = QWidget()
 
 
         self.title = QLabel('Arrecadação total no período')
@@ -27,31 +27,32 @@ class ReportView(QWidget):
         self.date_final = QComboBox()
 
         self.date_initial.addItem('Início do período')
-        self.date_final.addItem('Início do período')
+        self.date_final.addItem('Fim do período')
+        self.date_final.addItem('Fim do período')
 
-        for i in range(100):
-            self.date_initial.addItem('10/10/2018')
-            self.date_final.addItem('12/11/2019')
+        for day in days:
+            self.date_initial.addItem(str(day))
+            self.date_final.addItem(str(day))
         self.button_ok = QPushButton('CALCULAR')
 
         #DEFININDO LAYOUT DOS LABELS
-        self.labels_layout.addWidget(self.title)
-        self.labels_layout.addWidget(self.money)
-        self.labels_container.setLayout(self.labels_layout)
+        labels_layout.addWidget(self.title)
+        labels_layout.addWidget(self.money)
+        labels_container.setLayout(labels_layout)
 
         # DEFININDO LAYOUT DOS INPUTS
-        self.inputs_layout.addWidget(self.date_initial)
-        self.inputs_layout.addWidget(self.date_final)
-        self.inputs_layout.addWidget(self.button_ok)
+        inputs_layout.addWidget(self.date_initial)
+        inputs_layout.addWidget(self.date_final)
+        inputs_layout.addWidget(self.button_ok)
 
         # DEFININDO LAYOUT GERAL
-        self.layout.addWidget(self.labels_container)
-        self.layout.addLayout(self.inputs_layout)
+        layout.addWidget(labels_container)
+        layout.addLayout(inputs_layout)
 
-        self.setLayout(self.layout)
+        self.setLayout(layout)
 
         #APLICANDO ESTILO
-        self.labels_container.setStyleSheet(STYLES.panel)
+        labels_container.setStyleSheet(STYLES.panel)
         self.title.setStyleSheet(STYLES.title)
         self.money.setStyleSheet(STYLES.money)
         self.button_ok.setStyleSheet(STYLES.button)

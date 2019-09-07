@@ -1,5 +1,6 @@
 class Vehicle:
-    def __init__(self, plate, model, color, arrival_time):
+    def __init__(self, id, plate, model, color, arrival_time):
+        self.__id = id
         self.__plate = plate
         self.__model = model
         self.__color = color
@@ -19,3 +20,8 @@ class Vehicle:
         return self.__arrival_time
     def get_departure_time(self):
         return self.__departure_time
+    def get_id(self):
+        return self.__id
+
+    def set_departure_time(self, time):
+        self.__departure_time = time
