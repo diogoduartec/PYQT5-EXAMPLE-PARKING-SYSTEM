@@ -2,8 +2,8 @@ from PyQt5.QtWidgets import QWidget, QTableWidget,QTableWidgetItem
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor, QBrush
 
-import assets.Colors as COLORS
-import assets.styles.PriceTable as STYLES
+import src.assets.Colors as COLORS
+import src.assets.styles.PriceTable as STYLES
 
 class PriceTable(QTableWidget):
     def __init__(self):
@@ -17,7 +17,7 @@ class PriceTable(QTableWidget):
         for i in range(11):
             row = []
             for j in range(7):
-                row.append(QTableWidgetItem("price"))
+                row.append(QTableWidgetItem("5.00"))
                 row[j].setTextAlignment(Qt.AlignCenter)
                 row[j].setForeground(QBrush(QColor('#FFFFFF')))
                 if j&1: #se a coluna for impar cor dark3

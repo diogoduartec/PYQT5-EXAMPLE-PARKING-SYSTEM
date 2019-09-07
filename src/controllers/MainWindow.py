@@ -2,10 +2,14 @@ from PyQt5.QtWidgets import QMainWindow, QToolBar, QToolButton, QWidget, QLabel,
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 
-from src.views.PriceTable import PriceTable
-import assets.styles.MainWindow as STYLES
+from src.views.gui.PriceTable import PriceTable
+import src.assets.styles.MainWindow as STYLES
+import src.controllers.PriceController as PriceController
 
-
+#IMPORTANTO VIEWS
+from src.views.PriceView import PriceView
+from src.views.ControllerView import ControllerView
+from src.views.ReportView import ReportView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -21,51 +25,63 @@ class MainWindow(QMainWindow):
         self.setup_toobar()
         self.setStyleSheet(STYLES.container)
 
-        self.load_prices()
         self.setFixedWidth(760)
         self.setFixedHeight(500)
 
+        price_view = PriceController.render_view()
+        self.setCentralWidget(price_view)
+
     def setup_toobar(self):
-        logo = QPixmap('assets/images/logo.png')
+        logo = QPixmap('src/assets/images/logo.png')
         label_logo = QLabel()
         label_logo.setPixmap(logo)
 
-        btn_register = QToolButton()
-        btn_register.setText("Preços")
+        self.btn_price = QToolButton()
+        self.btn_price.setText("Preços")
 
-        btn_controler = QToolButton()
-        btn_controler.setText("Controle")
+        self.btn_controler = QToolButton()
+        self.btn_controler.setText("Controle")
 
-        btn_report = QToolButton()
-        btn_report.setText("Relatório")
+        self.btn_report = QToolButton()
+        self.btn_report.setText("Relatório")
 
         toolbar = QToolBar()
         toolbar.addWidget(label_logo)
-        toolbar.addWidget(btn_register)
-        toolbar.addWidget(btn_controler)
-        toolbar.addWidget(btn_report)
-        btn_register.setStyleSheet(STYLES.active_tool_button)
-        btn_report.setStyleSheet(STYLES.tool_button)
-        btn_controler.setStyleSheet(STYLES.tool_button)
+        toolbar.addWidget(self.btn_price)
+        toolbar.addWidget(self.btn_controler)
+        toolbar.addWidget(self.btn_report)
+
+        self.btn_price.setStyleSheet(STYLES.active_tool_button)
+        self.btn_report.setStyleSheet(STYLES.tool_button)
+        self.btn_controler.setStyleSheet(STYLES.tool_button)
+
+        self.btn_controler.clicked.connect(self.controller_handle_click)
+        self.btn_report.clicked.connect(self.report_handle_click)
+        self.btn_price.clicked.connect(self.price_handle_click)
+
 
         toolbar.setAllowedAreas(Qt.TopToolBarArea)
         toolbar.setStyleSheet(STYLES.toolbar)
 
         self.addToolBar(toolbar)
 
-    def load_prices(self):
-        container = QWidget()
-        price_table_container = QVBoxLayout()
-        button_container = QHBoxLayout()
+    def price_handle_click(self):
+        self.btn_report.setStyleSheet(STYLES.tool_button)
+        self.btn_controler.setStyleSheet(STYLES.tool_button)
+        self.btn_price.setStyleSheet(STYLES.active_tool_button)
+        price_view = PriceView()
+        self.setCentralWidget(price_view)
 
-        price_table = PriceTable()
-        button = QPushButton("SALVAR ALTERAÇÕES")
-        button.setFixedWidth(200)
+    def report_handle_click(self):
+        self.btn_price.setStyleSheet(STYLES.tool_button)
+        self.btn_controler.setStyleSheet(STYLES.tool_button)
+        self.btn_report.setStyleSheet(STYLES.active_tool_button)
+        report_view = ReportView()
+        self.setCentralWidget(report_view)
 
-        button_container.addWidget(button)
-        price_table_container.addWidget(price_table)
-        price_table_container.addLayout(button_container)
-        container.setLayout(price_table_container)
-
-        button.setStyleSheet(STYLES.button)
-        self.setCentralWidget(container)
+    def controller_handle_click(self):
+        self.btn_price.setStyleSheet(STYLES.tool_button)
+        self.btn_report.setStyleSheet(STYLES.tool_button)
+        self.btn_controler.setStyleSheet(STYLES.active_tool_button)
+        controller_view = ControllerView()
+        self.setCentralWidget(controller_view)
