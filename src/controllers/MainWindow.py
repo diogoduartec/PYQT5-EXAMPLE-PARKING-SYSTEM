@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 
 from src.views.gui.PriceTable import PriceTable
-import src.assets.styles.MainWindow as STYLES
+import src._assets.styles.MainWindow as STYLES
 
 #IMPORTANDO CONTROLLERS
 from src.controllers.PriceController import PriceController
@@ -35,7 +35,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(price_controller.render_view())
 
     def setup_toobar(self):
-        logo = QPixmap('src/assets/images/logo.png')
+        logo = QPixmap('src/_assets/images/logo.png')
         label_logo = QLabel()
         label_logo.setPixmap(logo)
 
