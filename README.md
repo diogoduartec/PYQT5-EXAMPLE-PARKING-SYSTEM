@@ -30,7 +30,7 @@ Toda informação relacionada a horário de entrada e saída de veículos é obt
 ##### Relatório de Faturamento
 Em relação ao relatório de faturamento, o que ficou claro é que o cliente deseja obter o faturamento de um determidado período, o sistema calcula o faturamento a partir de um dia inicial até um dia final.
 
-Somente os veículos cuja a saída já foi registrada constarão neste calculo. Ou seja, se o veículo aínda está na lista de veículos estacionados a conta dele não estará no relatório.
+Somente os veículos cuja a saída já foi registrada constarão neste cálculo. Ou seja, se o veículo aínda está na lista de veículos estacionados a conta dele não estará no relatório.
 
 ## Features futuras e melhorias
 
@@ -45,4 +45,4 @@ Na tela de Relatório pode ser aprimorada a forma como o usuário selecionada a 
 Poderia ser introduzida uma feature que permitisse o usuário obter um relatório geral em PDF de todos os dias por período.
 
 ##### Feature de IA
-O sistema poderia ser integrado a sistemas inteligentes com câmeras e sensores, para fazer o registro altomático da entrada e saída.
+O sistema poderia ser integrado a sistemas inteligentes com câmeras e sensores, para fazer o registro altomático da entrada e saída de veículos
