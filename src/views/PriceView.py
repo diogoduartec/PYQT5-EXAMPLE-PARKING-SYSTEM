@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QHBoxLayout, QLabel
 from PyQt5.QtCore import QObject
 
 from src.views.gui.PriceTable import PriceTable
@@ -14,18 +14,21 @@ class PriceView(QWidget):
         button_container = QHBoxLayout()
 
         # COMPONENTES DA TELA
+        self.info = QLabel("*Para alterar um valor clique duas vezes na célula")
         self.price_table = PriceTable(table)
         self.button_save = QPushButton("SALVAR ALTERAÇÕES")
         self.button_save.setFixedWidth(200)
 
         # DEFININDO LAYOUTS
         button_container.addWidget(self.button_save)
+        price_table_container.addWidget(self.info)
         price_table_container.addWidget(self.price_table)
         price_table_container.addLayout(button_container)
         self.setLayout(price_table_container)
 
         # APLICANDO ESTILOS
         self.button_save.setStyleSheet(STYLES.button)
+        self.info.setStyleSheet(STYLES.label)
 
     # COMPORTAMENTO DEFINIDO PELO CONTROLLER
     def set_events(self, on_button_clicked):

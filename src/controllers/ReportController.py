@@ -38,17 +38,15 @@ class ReportController:
         return registers_list
 
     def calculate_profit(self):
-        initial_index = self.view.date_initial.currentIndex()-1
-        final_index = self.view.date_final.currentIndex()-1
+        initial_index = self.view.date_initial.currentIndex() - 1
+        final_index = self.view.date_final.currentIndex() - 1
         initial_date = int(self.days_list_mirror[initial_index].timestamp())
         final_date = int(self.days_list_mirror[final_index].timestamp())
 
-
-        if final_index >= initial_index >= 0 and final_index>=0:
+        if final_index >= initial_index >= 0 and final_date >= 0 and initial_date >= 0:
             return VehicleList().get_profit_amount(initial_date, final_date)
         else:
             return 0.0
 
-
     def set_money_panel(self):
-        self.view.money.setText('R$ '+str(self.calculate_profit()))
+        self.view.money.setText('R$ ' + str(self.calculate_profit()))

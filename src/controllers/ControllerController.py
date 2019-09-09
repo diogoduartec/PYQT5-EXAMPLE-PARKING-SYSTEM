@@ -46,7 +46,18 @@ class ControllerController:
         plate = self.input_plate.text()
         model = self.input_model.text()
         color = self.input_color.text()
-        arrival_time = int(datetime.datetime.now().timestamp())
+
+        if len(plate) < 7 or len(model) < 2 or len(color) < 2:
+            return
+
+        # CORRIGINDO HORÁRIO DE ENTRADA CONSIDERANDO QUE O ESTACIONAMENTO SÓ FUNCIONA DAS 8 - 18
+        now = datetime.datetime.now()
+        if now.hour < 8:
+            now = datetime.datetime(now.year, now.month, now.day, 8)
+        if now.hour > 18:
+            now = datetime.datetime(now.year, now.month, now.day, 18)
+
+        arrival_time = int(now.timestamp())
 
         vehicle = Vehicle(plate, model, color, arrival_time)
         vehicle_crud = VehicleCrud()
@@ -60,11 +71,26 @@ class ControllerController:
         self.vehicle_list.add_item(vehicle.get_resume())
 
     def remove_vehicle(self):
+
         vehicle_crud = VehicleCrud()
         row = self.vehicle_list.list_autos.currentRow()
         item = self.vehicle_list.list_autos.takeItem(row)
+
+        if len(self.vehicle_list_mirror) <= 0 or row < 0:
+            return
+
         mirror_item = self.vehicle_list_mirror[row]
-        departure_time = int(datetime.datetime.now().timestamp())
+
+        irrival_time = datetime.datetime.fromtimestamp(mirror_item.get_arrival_time())
+
+        # CORRIGINDO HORÁRIO DE SAÍDA CONSIDERANDO QUE O ESTACIONAMENTO SÓ FUNCIONA DAS 8 - 18
+        now = datetime.datetime.now()
+        if now.day > irrival_time.day:
+            now = datetime.datetime(now.year, now.month, irrival_time.day, 18)
+        if now.hour > 18:
+            now = datetime.datetime(now.year, now.month, now.day, 18)
+
+        departure_time = int(now.timestamp())
         mirror_item.set_departure_time(departure_time)
 
         # CALCULANDO CONTA
@@ -79,6 +105,7 @@ class ControllerController:
         arrival_time = vehicle.get_arrival_time()
         departure_time = vehicle.get_departure_time()
         total_time = int(ceil((departure_time - arrival_time)/3600))
+
         day = date.fromtimestamp(arrival_time).weekday()
         day = (day+1)%7 # corrigindo dia para semana começar no domingo
         initial_hour = datetime.datetime.fromtimestamp(arrival_time).hour

@@ -10,6 +10,7 @@ from src._db.db_path import db_path
 class VehicleList:
     def __init__(self):
         connection = self.sqlite_connection()
+        self.__list_vehicle_full = []
         self.__list_vehicle = self.__get_vehicle_list(connection)
 
     def sqlite_connection(self):
@@ -27,6 +28,17 @@ class VehicleList:
         try:
             cursor.execute(sql_command)
             rows = cursor.fetchall()
+
+            for row in rows:
+                id = row[0]
+                plate = row[1]
+                model = row[2]
+                color = row[3]
+                arrival_time = row[4]
+                v = Vehicle(plate, model, color, arrival_time)
+                v.set_id(id)
+                self.__list_vehicle_full.append(v)
+
             rows = filter(lambda row: row[5] == None, rows)
 
             for row in rows:
@@ -48,11 +60,11 @@ class VehicleList:
         return self.__list_vehicle
 
     def get_first_vehicle_date(self):
-        return datetime.fromtimestamp(self.__list_vehicle[0].get_arrival_time())
+        return datetime.fromtimestamp(self.__list_vehicle_full[0].get_arrival_time())
 
     def get_last_vehicle_date(self):
-        last_position = len(self.__list_vehicle) - 1
-        return datetime.fromtimestamp(self.__list_vehicle[last_position].get_arrival_time())
+        last_position = len(self.__list_vehicle_full) - 1
+        return datetime.fromtimestamp(self.__list_vehicle_full[last_position].get_arrival_time())
 
     def get_profit_amount(self, initial_date, final_date):
         connection = self.sqlite_connection()
@@ -67,5 +79,5 @@ class VehicleList:
         except Error as error:
             print(error)
 
-        return result
+        return 0.0 if result is None else result
 

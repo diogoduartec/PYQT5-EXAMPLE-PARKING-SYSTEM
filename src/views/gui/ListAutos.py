@@ -15,12 +15,13 @@ class ListAutos(QVBoxLayout):
         # COMPONENTES DA LISTA
         self.button_delete = QPushButton('REGISTRAR SAÍDA DO VEÍCULO')
         self.button_delete.setStyleSheet(STYLES.button)
-
-        # APLICANDO ESTILO
         self.addWidget(self.button_delete)
+
+
 
     def set_content(self, vehicle_list):
         self.list_autos = QListWidget()
+        self.list_autos.setStyleSheet(STYLES.list_autos)
 
         items = []
         for i in range(len(vehicle_list)):

@@ -21,7 +21,7 @@ class MainWindow(QMainWindow):
         top = 100
         left = 100
         width = 762
-        height = 510
+        height = 530
 
         self.setWindowTitle(self.title)
         self.setGeometry(top, left, width, height)
