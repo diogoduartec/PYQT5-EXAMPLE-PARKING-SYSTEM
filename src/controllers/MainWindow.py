@@ -36,6 +36,7 @@ class MainWindow(QMainWindow):
 
     def setup_toobar(self):
         logo = QPixmap('src/_assets/images/logo.png')
+        logo = logo.scaled(64, 64)
         label_logo = QLabel()
         label_logo.setPixmap(logo)
 
@@ -67,6 +68,8 @@ class MainWindow(QMainWindow):
         toolbar.setStyleSheet(STYLES.toolbar)
 
         self.addToolBar(toolbar)
+
+        label_logo.setStyleSheet('margin-left: 10px; margin-right: 10px;')
 
     def price_handle_click(self):
         self.btn_report.setStyleSheet(STYLES.tool_button)
