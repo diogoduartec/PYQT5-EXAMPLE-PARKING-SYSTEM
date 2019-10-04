@@ -17,7 +17,7 @@ from src.views.ReportView import ReportView
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.title = "ITRIAD"
+        self.title = "PARKING SYSTEM"
         top = 100
         left = 100
         width = 762
