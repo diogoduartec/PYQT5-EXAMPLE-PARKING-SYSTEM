@@ -111,8 +111,10 @@ class ControllerController:
         initial_hour = datetime.datetime.fromtimestamp(arrival_time).hour
 
         sum = 0.0
+        total_time = min(11, total_time)
         for i in range(total_time):
             hour = initial_hour+i-8
+            print(sum, " ", hour)
             sum += self.day_price[day][hour]
 
         return sum
