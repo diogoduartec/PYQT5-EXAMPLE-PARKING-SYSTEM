@@ -1,15 +1,25 @@
 # Parking
 
-### run virtual environment Ubuntu:
+### Setup virtual environment Ubuntu:
+Install Poetry https://python-poetry.org/docs/configuration/
 
+Init poetry virtual environment console
 ```shell
-source venv/bin/activate
+poetry shell
+```
+
+Install dependencies
+```shell
+poetry install
 ```
 ### run app:
 
+### Run the project
+
 ```shell
-python3 main.py
+python main.py
 ```
+
 ## Technologies
 
 ##### 1. [Python3](https://docs.python.org/3.3/)
